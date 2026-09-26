@@ -5,8 +5,8 @@ public class ClassExample1 {
 	public static void main(String[] args) {
 		Scanner keyboard = new Scanner(System.in);
 		int num;
-		boolean isValid = false;
-		/*while(!isValid) {
+		/*boolean isValid = false;
+		while(!isValid) {
 			try {
 				System.out.print("Please input a number: ");
 				num = keyboard.nextInt();
@@ -24,6 +24,7 @@ public class ClassExample1 {
 		
 		System.out.println("Please input a name");
 		String name = keyboard.nextLine(); 
+		keyboard.close();
 		
 		System.out.println("Graduating class of " + num + ": Validictorian is " + name);
 	}

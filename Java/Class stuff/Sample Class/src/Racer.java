@@ -4,22 +4,36 @@ public class Racer {
 	private String m_Name;
 	private double m_Speed;
 	
-	// setter for the name attribute
+	// constructors for racer class
+	Racer(){ // default constructor
+		m_Name = "";
+		m_Speed = 0.0;
+	};
+	Racer(String name) { // only name attribute
+		m_Name = name;
+		m_Speed = 0.0;
+	}
+	Racer(double speed) { // only speed attribute
+		m_Name = "";
+		m_Speed = speed;
+	}
+	Racer(String name, double speed) { // all attributes
+		m_Name = name;
+		m_Speed = speed;
+	}
+	
+	// setters
 	public void setName(String name) {
 		m_Name = name;
 	}
-	
-	// getter for the name attribute
-	public String getName() {
-		return m_Name;
-	}
-	
-	// setter for the speed attribute
 	public void setSpeed(double speed) {
 		m_Speed = speed;
 	}
 	
-	// getter for the speed attribute
+	// getters
+	public String getName() {
+		return m_Name;
+	}
 	public double getSpeed() {
 		return m_Speed;
 	}
@@ -27,5 +41,10 @@ public class Racer {
 	// displays the racers attributes
 	public void displayInfo() {
 		System.out.println("Racer name: " + m_Name + "\nSpeed: " + m_Speed);
+	}
+	
+	//return attributes as a string
+	public String toString() {
+		return "Racer name: " + m_Name + "\nSpeed: " + m_Speed;
 	}
 }
