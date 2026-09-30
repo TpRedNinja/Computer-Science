@@ -1,0 +1,3 @@
+Recursion Time: 0.67 seconds 
+For loop Time: 0.61 seconds 
+While loop Time: 0.62 seconds 
