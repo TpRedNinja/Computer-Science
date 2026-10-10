@@ -26,6 +26,7 @@ public class DrunkCalculator {
 		keyboard.nextLine();
 		out.println("What is your name?: ");
 		name = keyboard.nextLine();
+		keyboard.close();
 		
 		// define more variables
 		final double GRAVITY = 32.174; // this contains the constant gravitational force

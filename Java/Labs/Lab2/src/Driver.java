@@ -8,13 +8,14 @@ public class Driver {
 		// get user input
 		Scanner Keyboard = new Scanner(System.in);
 		System.out.println("What is your name? ");
-		String name = Keyboard.nextLine();0
+		String name = Keyboard.nextLine();
 		System.out.println("What is your major? ");
 		String major = Keyboard.nextLine();
 		System.out.println("What is your student id? ");
 		int id = Keyboard.nextInt();
 		System.out.println("How many credits have you completed? ");
 		int credits = Keyboard.nextInt();
+		Keyboard.close();
 		
 		// use user input
 		student.setName(name);
