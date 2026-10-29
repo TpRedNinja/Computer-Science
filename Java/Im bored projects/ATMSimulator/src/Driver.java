@@ -40,7 +40,8 @@ public class Driver {
 	public static void main(String[] args) {
 		// variables
 		Scanner s = new Scanner(System.in);
-		int choice, accountType; 
+		int choice, accountType;
+		double money = 0.0;
 		String Name;
 		
 		BankAccount[] accounts = new BankAccount[2];
@@ -54,8 +55,8 @@ public class Driver {
 			out.println("Happy to see you " + Name);
 			out.println("Would you like to open a checking, savings, or both?");
 			out.println("Enter 1 for checkings"
-					+ "\n2for savings"
-					+ "\n3for both");
+					+ "\n2 for savings"
+					+ "\n3 for both");
 			accountType = s.nextInt();
 			if(!isValid(accountType, 3)) {
 				err.println("Error!: Invalid Input");
@@ -66,15 +67,16 @@ public class Driver {
 		
 		
 		if(accountType == 1) {
-			BankAccount checkings = new BankAccount(Name);
+			BankAccount checkings = new BankAccount(Name, BankAccount.AccountType.CHECKINGS);
+			checkings.displayInfo();
 			accounts[0] = checkings;
 		} else if(accountType == 2) {
-			BankAccount savings = new BankAccount(Name);
+			BankAccount savings = new BankAccount(Name,BankAccount.AccountType.SAVINGS);
 			accounts[1] = savings;
 		} else if (accountType == 3) {
-			BankAccount checkings = new BankAccount(Name);
+			BankAccount checkings = new BankAccount(Name, BankAccount.AccountType.CHECKINGS);
 			accounts[0] = checkings;
-			BankAccount savings = new BankAccount(Name);
+			BankAccount savings = new BankAccount(Name,BankAccount.AccountType.SAVINGS);
 			accounts[1] = savings;
 		}
 		

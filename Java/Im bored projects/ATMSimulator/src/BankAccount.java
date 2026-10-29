@@ -6,11 +6,50 @@ public class BankAccount {
 	// attributes
 	private double m_AccountBalance;
 	private String m_AccountName;
+	private AccountType m_AccountType;
+	private final double MINBALANCE = 300.00; 
+	enum AccountType{
+		CHECKINGS(1),
+		SAVINGS(2);
+		
+		private final int TYPE;
+		
+		AccountType(int type){
+			this.TYPE = type;
+		}
+		
+		public int getType() {
+			return TYPE;
+		}
+	}
 	
-	// constructor
-	BankAccount(String aN){
-		m_AccountBalance = 10000.00;
+	// constructors
+	BankAccount (){ // default
+		m_AccountBalance = 0.0;
+		m_AccountName = "N/A";
+		m_AccountType = AccountType.CHECKINGS;
+	}
+	BankAccount(String aN){ // set name
+		m_AccountBalance = 0.0;
 		m_AccountName = aN;
+		m_AccountType = AccountType.CHECKINGS;
+		
+	}
+	BankAccount(String aN, double aB){ // set name and balance
+		m_AccountBalance = aB;
+		m_AccountName = aN;
+		m_AccountType = AccountType.CHECKINGS;
+		
+	}
+	BankAccount (String aN, AccountType type){ // set name and type
+		m_AccountBalance = 0.0;
+		m_AccountName = aN;
+		m_AccountType = type;
+	}
+	BankAccount (String aN ,double aB, AccountType type){ // set all attributes
+		m_AccountBalance = aB;
+		m_AccountName = aN;
+		m_AccountType = type;
 	}
 	
 	//getters and setters
@@ -40,9 +79,9 @@ public class BankAccount {
 	
 	// to check if we can withdraw;
 	private boolean canWithDrawMoney(double money) {
-		if (m_AccountBalance - money < 0)
+		if (m_AccountBalance - money < MINBALANCE && m_AccountType == AccountType.SAVINGS)
 			return false;
-		if (money > m_AccountBalance)
+		else if (money > m_AccountBalance && m_AccountType == AccountType.CHECKINGS)
 			return false;
 		
 		return true;
@@ -59,7 +98,7 @@ public class BankAccount {
 	public void withdrawMoney(double money) {
 		boolean canWithDraw = canWithDrawMoney(money);
 		if (canWithDraw) {
-			if (m_AccountBalance - money == 0) {
+			if (m_AccountBalance - money == 0 && m_AccountType == AccountType.CHECKINGS) {
 				Scanner s = new Scanner(System.in);
 				int choice;
 				do {
@@ -98,6 +137,10 @@ public class BankAccount {
 	public void displayInfo() {
 		String name = getName();
 		double bal = getBalance();
-		out.printf("Current Balance for %s account: %.2f", name, bal);
+		AccountType type = m_AccountType;
+		if (type == AccountType.CHECKINGS)
+			out.printf("Current Balance for %s checkings account: %.2f", name, bal);
+		else if (type == AccountType.SAVINGS)
+			out.printf("Current Balance for %s savings account: %.2f", name, bal);
 	}
 }
