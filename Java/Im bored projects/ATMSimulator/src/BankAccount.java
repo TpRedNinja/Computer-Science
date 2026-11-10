@@ -42,9 +42,13 @@ public class BankAccount {
 		
 	}
 	BankAccount (String aN, AccountType type){ // set name and type
-		m_AccountBalance = 0.0;
 		m_AccountName = aN;
 		m_AccountType = type;
+		if (type == AccountType.SAVINGS) {
+			m_AccountBalance = MINBALANCE;
+		} else {
+			m_AccountBalance = 0.0;
+		}
 	}
 	BankAccount (String aN ,double aB, AccountType type){ // set all attributes
 		m_AccountBalance = aB;
@@ -78,7 +82,7 @@ public class BankAccount {
 	}
 	
 	// to check if we can withdraw;
-	private boolean canWithDrawMoney(double money) {
+	public boolean canWithDrawMoney(double money) {
 		if (m_AccountBalance - money < MINBALANCE && m_AccountType == AccountType.SAVINGS)
 			return false;
 		else if (money > m_AccountBalance && m_AccountType == AccountType.CHECKINGS)
@@ -98,17 +102,20 @@ public class BankAccount {
 	public void withdrawMoney(double money) {
 		boolean canWithDraw = canWithDrawMoney(money);
 		if (canWithDraw) {
-			if (m_AccountBalance - money == 0 && m_AccountType == AccountType.CHECKINGS) {
+			boolean isZero = m_AccountBalance - money == 0;
+			boolean isSavings = m_AccountType == AccountType.SAVINGS;
+			boolean lessMin = (isSavings && m_AccountBalance - money < MINBALANCE);
+			if (isZero && !isSavings) {
 				Scanner s = new Scanner(System.in);
 				int choice;
 				do {
-					out.printf("\nWarning!: Withdrawing %.2f will put your account to 0.");
-					out.println("Are you sure you want to continue?");
+					out.printf("Warning!: Withdrawing %.2f will put your account to 0.", money);
+					out.println("\nAre you sure you want to continue?");
 					out.println("Enter 1 for yes 2 for no");
 					choice = s.nextInt();
-					if (choice != 1 || choice != 2)
+					if (choice != 1 && choice != 2)
 						err.println("Error!: Invalid Numbers");
-				}while(choice != 1 || choice != 2);
+				}while(choice != 1 && choice != 2);
 				switch(choice) {
 				case 1:
 					m_AccountBalance -= money;
@@ -119,9 +126,10 @@ public class BankAccount {
 				default:
 					break;
 				}
-				
-				s.close();
-			} else {
+			} else if (isSavings && lessMin) {
+				err.println("Error!: Can not withdraw money from account its below the min balance required");
+				out.println("Min balance required: " + MINBALANCE);
+			}else {
 				m_AccountBalance -= money;
 				displayWithDrawInfo(money, m_AccountBalance);
 			}
@@ -142,5 +150,14 @@ public class BankAccount {
 			out.printf("Current Balance for %s checkings account: %.2f", name, bal);
 		else if (type == AccountType.SAVINGS)
 			out.printf("Current Balance for %s savings account: %.2f", name, bal);
+	}
+	
+	public void displayAcctInfo() {
+		String name = getName();
+		double bal = getBalance();
+		AccountType type = m_AccountType;
+		out.printf("Account Name: %s"
+				+ "\nAccount Balance: %.2f"
+				+ "\nAccount Type: " + type, name, bal);
 	}
 }
