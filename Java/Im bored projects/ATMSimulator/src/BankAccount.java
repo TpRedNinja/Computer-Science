@@ -99,14 +99,13 @@ public class BankAccount {
 	}
 	
 	// withdraw money
-	public void withdrawMoney(double money) {
+	public void withdrawMoney(double money, Scanner s) {
 		boolean canWithDraw = canWithDrawMoney(money);
 		if (canWithDraw) {
 			boolean isZero = m_AccountBalance - money == 0;
 			boolean isSavings = m_AccountType == AccountType.SAVINGS;
 			boolean lessMin = (isSavings && m_AccountBalance - money < MINBALANCE);
 			if (isZero && !isSavings) {
-				Scanner s = new Scanner(System.in);
 				int choice;
 				do {
 					out.printf("Warning!: Withdrawing %.2f will put your account to 0.", money);

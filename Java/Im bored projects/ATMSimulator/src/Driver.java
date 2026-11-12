@@ -160,10 +160,10 @@ public class Driver {
 			if (!isValidAmount(amount)) {
 				err.println("Error: Please enter a positive number");
 			} else if (!b.canWithDrawMoney(amount)) {
-				b.withdrawMoney(amount);
+				b.withdrawMoney(amount, s);
 			}
 		}while(!isValidAmount(amount) || !b.canWithDrawMoney(amount));
-		b.withdrawMoney(amount);
+		b.withdrawMoney(amount, s);
 		
 	}
 	
@@ -201,7 +201,6 @@ public class Driver {
 		// variables
 		Scanner s = new Scanner(System.in);
 		int choice, accountType;
-		double money = 0.0;
 		String Name;
 		
 		BankAccount[] accounts = new BankAccount[2];
