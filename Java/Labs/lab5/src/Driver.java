@@ -82,7 +82,7 @@ public class Driver {
 				out.println("Enter the height of the rectangular prism");
 				height = s.nextDouble();
 				// if its negative convert to positive
-				raidus = isNegative(len); 
+				len = isNegative(len); 
 				breadth = isNegative(breadth);
 				height = isNegative(height);
 				surfaceArea = sa.calSurfArea(len,height,breadth); //calculate surface area
@@ -133,6 +133,7 @@ public class Driver {
 				break;
 			}
 		}
+		s.close();
 		
 	}
 
